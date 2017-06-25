@@ -1,5 +1,6 @@
 package com.andreytarasenko.topmoviesdemoapp;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +30,9 @@ public class TopMoviesActivity extends AppCompatActivity implements TopMoviesAct
     @Inject
     TopMoviesActivityMVP.Presenter presenter;
 
+    @Inject
+    Context context;
+
     private ListAdapter listAdapter;
     private List<Result> resultList = new ArrayList<>();
 
@@ -41,7 +45,7 @@ public class TopMoviesActivity extends AppCompatActivity implements TopMoviesAct
 
         ButterKnife.bind(this);
 
-        listAdapter = new ListAdapter(resultList);
+        listAdapter = new ListAdapter(resultList, context);
         recyclerView.setAdapter(listAdapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(this));
 

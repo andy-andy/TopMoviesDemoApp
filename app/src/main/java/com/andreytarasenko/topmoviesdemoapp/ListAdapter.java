@@ -1,10 +1,13 @@
 package com.andreytarasenko.topmoviesdemoapp;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.andreytarasenko.topmoviesdemoapp.api.model.Result;
 
@@ -13,20 +16,34 @@ import java.util.Locale;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListItemViewHolder> {
 
+    private static final String TAG = "TopMoviesListAdapter";
+
     private List<Result> list;
 
-    public ListAdapter(List<Result> list) {
+    private Context context;
+
+    public ListAdapter(List<Result> list, Context context) {
         this.list = list;
+        this.context = context;
     }
 
 
     public static class ListItemViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView itemName;
-        public TextView popularity;
+        private final TextView itemName;
+        private final TextView popularity;
 
-        public ListItemViewHolder(View itemView) {
+        public ListItemViewHolder(final View itemView, final Context context) {
             super(itemView);
+
+            // Define click listener for the ViewHolder's View.
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
+                    Toast.makeText(context, "Click at position: " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+                }
+            });
 
             itemName = (TextView) itemView.findViewById(R.id.textView_movie_name);
             popularity = (TextView) itemView.findViewById(R.id.textView_popularity);
@@ -38,7 +55,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListItemViewHo
 
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_list_row, parent, false);
 
-        return new ListItemViewHolder(itemView);
+        return new ListItemViewHolder(itemView, context);
     }
 
     @Override
