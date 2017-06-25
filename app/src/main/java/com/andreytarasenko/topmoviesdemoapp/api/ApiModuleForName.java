@@ -1,5 +1,7 @@
 package com.andreytarasenko.topmoviesdemoapp.api;
 
+import com.andreytarasenko.topmoviesdemoapp.BuildConfig;
+
 import java.io.IOException;
 
 import dagger.Module;
@@ -18,8 +20,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiModuleForName {
 
     public final String BASE_URL = "http://api.themoviedb.org/3/movie/";
-    public final String API_KEY = "bd422e025d737a9b826613846010cb68";
 
+    //Replace API_KEY with your own API key
+    private static final String API_KEY = BuildConfig.API_KEY;
 
     @Provides
     public OkHttpClient provideClient() {
