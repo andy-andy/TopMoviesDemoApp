@@ -8,7 +8,7 @@ import com.andreytarasenko.topmoviesdemoapp.di.DaggerApplicationComponent;
 
 public class App extends Application {
 
-    ApplicationComponent component;
+    protected ApplicationComponent component;
 
     @Override
     public void onCreate() {
